@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\UserController;
 use App\Models\Listing;
@@ -22,7 +21,7 @@ Route::get('/', function () {
 Route::get(
     '/listings/create',
     [ListingController::class, 'create']
-);
+)->middleware('auth');
 
 //store listings
 
@@ -30,8 +29,10 @@ Route::post('/listings', [ListingController::class, 'store']);
 
 
 //Show Edit Form
-Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');
 
+//manage listings
+Route::get('/dashboard', [ListingController::class, 'dashboard'])->middleware('auth');
 
 //single listing
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
@@ -40,7 +41,7 @@ Route::get('/listings/{listing}', [ListingController::class, 'show']);
 Route::put('/listings/{listing}', [ListingController::class, 'update']);
 
 //delete listing
-Route::delete('/listings/{listing}', [ListingController::class, 'destroy']);
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
 
 Route::get('/about', function () {
     return view('about', [
@@ -49,7 +50,18 @@ Route::get('/about', function () {
 });
 
 //show register/create form
-Route::get('/register', [UserController::class, 'create']);
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
 //create new user
 Route::post('/users', [UserController::class, 'store']);
+
+
+//logout
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+
+
+//show login form
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+
+//login user
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);

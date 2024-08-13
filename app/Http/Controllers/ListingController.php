@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use auth;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 
@@ -46,6 +47,8 @@ class ListingController extends Controller
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
+        $formFields['user_id'] = auth()->id();
+
         Listing::create($formFields);
 
         return redirect('/')->with('message', 'Listing Created Successfully');
@@ -61,6 +64,12 @@ class ListingController extends Controller
     //update data
     public function update(Request $request, Listing $listing)
     {
+
+        //validate logged in user
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'Unauthorised Action');
+        }
+
         $formFields = $request->validate([
             'title' => 'required',
             'email' => ['required', 'email'],
@@ -82,7 +91,19 @@ class ListingController extends Controller
     //delete listing
     public function destroy(Listing $listing)
     {
+        //validate logged in user
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'Unauthorised Action');
+        }
+
         $listing->delete();
         return redirect('/')->with('message' . 'Listing deleted successfully');
+    }
+
+
+    //manage lystings
+    public function dashboard()
+    {
+        return view('dashboard', ['listings' => auth()->user()->listings()->get()]);
     }
 }

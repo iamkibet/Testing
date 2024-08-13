@@ -1,5 +1,4 @@
-@extends('layout')
-@section('content')
+<x-layout>
     <section class="bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Register</h2>
@@ -9,18 +8,16 @@
                     <div class="sm:col-span-2">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" name="name" class="form-input" placeholder="Name"
-                            value="{{ old('name') }}">
+                            value="{{ old('name') }}" />
                         @error('name')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
-
                     <div>
                         <label for="item-weight"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input type="email" name="email" class="form-input" placeholder="example@gmail.com"
-                            value="{{ old('email') }}">
+                            value="{{ old('email') }}" />
                         @error('email')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -51,4 +48,5 @@
             </form>
         </div>
     </section>
-@endsection
+
+</x-layout>

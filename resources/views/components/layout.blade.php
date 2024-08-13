@@ -13,10 +13,10 @@
 <body class="bg-gray-900 text-white">
     <x-flash-message />
     <x-navbar />
-
-    @yield('content')
+    <main>
+        {{ $slot }}
+    </main>
     <x-footer />
-
 </body>
 
 </html>

@@ -1,5 +1,4 @@
-@extends('layout')
-@section('content')
+<x-layout>
     <div class="flex flex-col items-center justify-center">
         <h2 class="text-3xl my-4">{{ $listing['title'] }}</h2>
         <p class="p-2 bg-slate-800 text-white">{{ $listing['description'] }}</p>
@@ -15,4 +14,4 @@
             <button class="text-red-500">Delete</button>
         </form>
     </div>
-@endsection
+</x-layout>

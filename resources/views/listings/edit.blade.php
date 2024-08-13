@@ -1,5 +1,4 @@
-@extends('layout')
-@section('content')
+<x-layout>
     <section class=" dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
             <h1 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Update Listing</h1>
@@ -76,6 +75,6 @@
                 </button>
             </form>
         </div>
-        
+
     </section>
-@endsection
+</x-layout>
